@@ -1,5 +1,13 @@
-function Dashboard() {
-  return <h1>Bem-vindo ao painel!</h1>
+import Navbar from "../components/BarraNavbar.jsx"
+
+function TelaPrincipal() {
+  return (
+    <>
+      <main>
+        <Navbar />
+      </main>
+    </>
+  )
 }
 
-export default Dashboard
+export default TelaPrincipal
