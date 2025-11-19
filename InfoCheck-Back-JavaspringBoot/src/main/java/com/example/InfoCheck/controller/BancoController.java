@@ -1,0 +1,46 @@
+package com.example.InfoCheck.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.example.InfoCheck.entities.Banco;
+import com.example.InfoCheck.entities.ContatoOficial;
+import com.example.InfoCheck.service.BancoService;
+import com.example.InfoCheck.service.ContatoOficialService;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/bancos")
+@CrossOrigin
+public class BancoController {
+
+    @Autowired
+    private BancoService bancoService;
+
+    @Autowired
+    private ContatoOficialService contatoService;
+
+    @GetMapping
+    public List<Banco> listar(){
+        return bancoService.listarTodos();
+    }
+
+    @PostMapping
+    public Banco criar(@RequestBody Banco banco){
+        return bancoService.salvar(banco);
+    }
+
+    @GetMapping("/{id}")
+    public Banco buscarPorId(@PathVariable Integer id){
+        return bancoService.buscarPorId(id);
+    }
+
+    @GetMapping("/{id}/contatos")
+    public List<ContatoOficial> listarContatos(@PathVariable Integer id){
+        return contatoService.listarPorBanco(id);
+    }
+
+    @PostMapping("/{id}/contatos")
+    public ContatoOficial criarContato(@PathVariable Integer id, @RequestBody ContatoOficial contato){
+        return contatoService.salvar(id, contato);
+    }
+}
